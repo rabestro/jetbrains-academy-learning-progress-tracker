@@ -27,7 +27,7 @@ public interface Command extends Runnable {
 
     /**
      * Command header.
-     *
+     * <p>
      * Optional text that can be printed before starting this command.
      *
      * @return a message that is printed before the command is started.
@@ -38,7 +38,7 @@ public interface Command extends Runnable {
 
     /**
      * Command footer.
-     *
+     * <p>
      * Optional text that can be printed after finishing this command.
      *
      * @return a message that is printed after the command is finished.

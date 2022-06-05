@@ -1,6 +1,5 @@
 package lv.id.jc.tracker.command;
 
-import java.io.PrintStream;
 import java.util.Scanner;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -10,12 +9,13 @@ import static java.util.function.Predicate.not;
 /**
  * The base, abstract class that contains common logic for all commands.
  */
+@SuppressWarnings("squid:S106")
 abstract class AbstractCommand implements Command {
     static final Scanner scanner = new Scanner(System.in);
 
     /**
      * The abstract process of executing application commands.
-     *
+     * <p>
      * All concrete commands must implement the getResponse method and
      * optionally redefine header(), footer() and runningCondition().
      */

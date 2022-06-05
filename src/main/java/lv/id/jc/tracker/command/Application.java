@@ -8,7 +8,7 @@ import static java.util.function.Predicate.not;
 
 /**
  * Application main menu.
- *
+ * <p>
  * This class represents the main menu of the application and executes sub-commands.
  */
 public class Application extends AbstractCommand {
