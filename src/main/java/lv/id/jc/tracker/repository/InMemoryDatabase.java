@@ -5,13 +5,16 @@ import lv.id.jc.tracker.model.Course;
 import lv.id.jc.tracker.model.Student;
 import lv.id.jc.tracker.model.Task;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 public class InMemoryDatabase implements TrackerRepository {
-    private final List<Student> students = new ArrayList<>();
+    private final List<Student> students;
+
+    public InMemoryDatabase(List<Student> storage) {
+        students = storage;
+    }
 
     @Override
     public void save(Student student) {
