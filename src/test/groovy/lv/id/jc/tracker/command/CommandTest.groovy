@@ -8,7 +8,7 @@ import spock.lang.Title
 import java.util.function.Predicate
 
 @Title('Interface of application commands')
-@Narrative('Tests for default methods for the interface')
+@Narrative('Tests for base logic for all commands')
 class CommandTest extends Specification {
 
     @Subject
@@ -17,16 +17,6 @@ class CommandTest extends Specification {
         @Override
         String getResponse(String request) {
             return null
-        }
-
-        @Override
-        Predicate<String> runningCondition() {
-            return null
-        }
-
-        @Override
-        void run() {
-
         }
     }
 
@@ -43,6 +33,22 @@ class CommandTest extends Specification {
     def 'should returns an empty footer'() {
         expect:
         underTest.footer().isEmpty()
+    }
+
+    def 'should finish execution if user enters "back"'() {
+        expect:
+        !underTest.runningCondition().test(request)
+
+        where:
+        request << ['back', 'BACK', 'Back', 'bAcK']
+    }
+
+    def 'should continue execution for requests other then "back"'() {
+        expect:
+        underTest.runningCondition().test(request)
+
+        where:
+        request << ['some command', '', 'exit', 'other command', 'quit']
     }
 
 }
