@@ -6,6 +6,7 @@ import lv.id.jc.tracker.repository.TrackerRepository;
 import lv.id.jc.tracker.validator.RequestValidator;
 
 import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 
@@ -58,6 +59,7 @@ public class AddStudents extends AbstractCommand {
             studentsAdded++;
             trackerRepository.save(
                     new Student(
+                            UUID.randomUUID().toString(),
                             matcher.group(FIRSTNAME.name()),
                             matcher.group(LASTNAME.name()),
                             matcher.group(EMAIL.name())

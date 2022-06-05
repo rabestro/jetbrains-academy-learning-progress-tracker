@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 import static java.util.function.Predicate.not;
 import static java.util.stream.Collectors.joining;
@@ -18,12 +17,8 @@ public record Student(
         List<Task> tasks,
         Set<Course> notified
 ) {
-    public Student(String firstName, String lastName, String email) {
-        this(generateId(), firstName, lastName, email, new ArrayList<>(), EnumSet.noneOf(Course.class));
-    }
-
-    private static String generateId() {
-        return UUID.randomUUID().toString();
+    public Student(String id, String firstName, String lastName, String email) {
+        this(id, firstName, lastName, email, new ArrayList<>(), EnumSet.noneOf(Course.class));
     }
 
     public void add(Task task) {
