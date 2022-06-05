@@ -24,6 +24,9 @@ dependencies {
     testRuntimeClasspath 'org.slf4j:slf4j-simple:1.7.36'
 }
 
+// In order to run the application type the command:
+// ./gradlew run -q --console=plain
+
 run {
     standardInput = System.in
 }
