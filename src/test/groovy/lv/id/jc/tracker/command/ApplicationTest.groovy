@@ -1,5 +1,6 @@
 package lv.id.jc.tracker.command
 
+import lv.id.jc.tracker.repository.TrackerRepository
 import spock.lang.Specification
 import spock.lang.Subject
 import spock.lang.Title
@@ -9,9 +10,10 @@ class ApplicationTest extends Specification {
     final CMD_ONE = 'one'
 
     def cmdOne = Mock Command
+    def repository = Mock TrackerRepository
 
     @Subject
-    def mainMenu = new Application([(CMD_ONE): cmdOne])
+    def mainMenu = new Application(repository, [(CMD_ONE): cmdOne])
 
     def 'should execute known command'() {
         when:

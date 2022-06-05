@@ -10,30 +10,32 @@ import java.util.UUID;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
 
+import static java.util.Optional.empty;
+import static java.util.Optional.of;
 import static lv.id.jc.tracker.validator.StudentValidator.*;
 
-public class AddStudents extends AbstractCommand {
-    private final TrackerRepository trackerRepository;
+public class AddStudents implements Command {
+    private final TrackerRepository repository;
     private int studentsAdded;
 
-    public AddStudents(final TrackerRepository trackerRepository) {
-        this.trackerRepository = trackerRepository;
+    public AddStudents(final TrackerRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public Optional<String> header() {
-        return Optional.of("Enter student credentials or 'back' to return");
+        return of("Enter student credentials or 'back' to return");
     }
 
     @Override
     public Optional<String> footer() {
-        return Optional.of("Total " + studentsAdded + " students have been added.");
+        return of("Total " + studentsAdded + " students have been added.");
     }
 
     @Override
     public void run() {
         studentsAdded = 0;
-        super.run();
+        Command.super.run();
     }
 
     @Override
@@ -49,15 +51,15 @@ public class AddStudents extends AbstractCommand {
     }
 
     private Supplier<Optional<String>> duplicateEmailValidate(Matcher matcher) {
-        return () -> trackerRepository.existsByEmail(matcher.group(EMAIL.name()))
-                ? Optional.of("This email is already taken.")
-                : Optional.empty();
+        return () -> repository.existsByEmail(matcher.group(EMAIL.name()))
+                ? of("This email is already taken.")
+                : empty();
     }
 
     private Supplier<String> addStudent(Matcher matcher) {
         return () -> {
             studentsAdded++;
-            trackerRepository.save(
+            repository.save(
                     new Student(
                             UUID.randomUUID().toString(),
                             matcher.group(FIRSTNAME.name()),

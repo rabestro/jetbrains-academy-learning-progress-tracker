@@ -31,7 +31,7 @@ public record Student(
 
     public String info() {
         return Course.stream()
-                .map(course -> course.name() + "=" + points(course))
+                .map(course -> course + "=" + points(course))
                 .collect(joining("; ", id() + " points: ", ""));
     }
 
