@@ -16,7 +16,7 @@ abstract class AbstractCommand implements Command {
      * The abstract process of executing application commands.
      *
      * All concrete commands must implement the getResponse method and
-     * redefine header(), footer() and runningCondition() is needed.
+     * optionally redefine header(), footer() and runningCondition().
      */
     @Override
     public void run() {
@@ -36,7 +36,7 @@ abstract class AbstractCommand implements Command {
      *
      * @return - a string predicate that returns
      * - false if the user enters 'back'
-     * - true for other commands
+     * - true for all others commands
      */
     @Override
     public Predicate<String> runningCondition() {
