@@ -1,5 +1,8 @@
 plugins {
-    id 'java'
+    id 'groovy'
+    id 'application'
+    id 'jacoco'
+    id "org.sonarqube" version "3.3"
 }
 
 group 'lv.id.jc.tracker'
@@ -10,10 +13,30 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    // Spock Framework
+    testImplementation platform('org.codehaus.groovy:groovy-bom:3.0.9')
+    testImplementation platform('org.spockframework:spock-bom:2.0-groovy-3.0')
+    testImplementation 'org.spockframework:spock-core'
+
+    // Spock Reports
+    testRuntimeClasspath 'com.athaydes:spock-reports:2.3.0-groovy-3.0'
+    testImplementation 'org.slf4j:slf4j-api:1.7.36'
+    testRuntimeClasspath 'org.slf4j:slf4j-simple:1.7.36'
 }
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+
+    systemProperty 'com.athaydes.spockframework.report.showCodeBlocks', true
+    systemProperty 'com.athaydes.spockframework.report.projectName', 'Learning Progress Tracker'
+    systemProperty 'com.athaydes.spockframework.report.projectVersion', 1.0
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "rabestro_jetbrains-academy-learning-progress-tracker"
+        property "sonar.organization", "rabestro"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
 }
