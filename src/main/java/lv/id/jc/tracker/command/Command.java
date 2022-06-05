@@ -47,5 +47,4 @@ public interface Command extends Runnable {
         return Optional.empty();
     }
 
-
 }
