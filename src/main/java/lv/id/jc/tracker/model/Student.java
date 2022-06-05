@@ -5,14 +5,10 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.regex.Matcher;
 
 import static java.util.function.Predicate.not;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toCollection;
-import static lv.id.jc.tracker.validator.StudentValidator.EMAIL;
-import static lv.id.jc.tracker.validator.StudentValidator.FIRSTNAME;
-import static lv.id.jc.tracker.validator.StudentValidator.LASTNAME;
 
 public record Student(
         String id,
@@ -22,14 +18,8 @@ public record Student(
         List<Task> tasks,
         Set<Course> notified
 ) {
-    public Student(Matcher matcher) {
-        this(
-                generateId(),
-                matcher.group(FIRSTNAME.name()),
-                matcher.group(LASTNAME.name()),
-                matcher.group(EMAIL.name()),
-                new ArrayList<>(), EnumSet.noneOf(Course.class)
-        );
+    public Student(String firstName, String lastName, String email) {
+        this(generateId(), firstName, lastName, email, new ArrayList<>(), EnumSet.noneOf(Course.class));
     }
 
     private static String generateId() {
